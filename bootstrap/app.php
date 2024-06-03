@@ -1,6 +1,7 @@
 <?php
 
 use Carbon\Exceptions\InvalidFormatException;
+use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
@@ -24,6 +25,12 @@ return Application::configure(basePath: dirname(__DIR__))
             $exceptions->renderable(function (InvalidFormatException $e) {
                 return response()->json([
                     'error' => 'Invalid date format. Please provide a valid date.',
+                ], 422);
+            });
+
+            $exceptions->renderable(function (AuthenticationException $e) {
+                return response()->json([
+                    'error' => 'Invalid credentials',
                 ], 422);
             });
         }
