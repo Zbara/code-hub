@@ -19,6 +19,7 @@ Route::controller(RegisterController::class)->prefix('register')->group(function
     Route::get('/verify/{id}', 'verify')->name('verification.verify');
     Route::post('/sendNewCode', 'sendNewCode');
 });
+
 Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::get('/getUser', [UserController::class, 'getUser']);
 
