@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Post\Post;
+use App\Models\User\UserLog;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -12,10 +13,9 @@ use Laravel\Sanctum\HasApiTokens;
 /**
  * @property string $token
  */
-
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable, HasApiTokens;
+    use HasApiTokens, HasFactory, Notifiable;
 
     /**
      * The attributes that are mass assignable.
@@ -51,9 +51,13 @@ class User extends Authenticatable
         ];
     }
 
-
     public function posts(): HasMany
     {
         return $this->hasMany(Post::class);
+    }
+
+    public function userLogs(): HasMany
+    {
+        return $this->hasMany(UserLog::class);
     }
 }

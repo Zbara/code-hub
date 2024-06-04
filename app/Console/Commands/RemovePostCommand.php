@@ -24,9 +24,9 @@ class RemovePostCommand extends Command
     /**
      * Execute the console command.
      */
-    public function handle()
+    public function handle(): void
     {
-        $this->info('Removing post ' . $this->argument('post_id') . ' from the database...');
+        $this->info('Removing post '.$this->argument('post_id').' from the database...');
 
         $post = Post::query()
             ->where('id', $this->argument('post_id'))
@@ -34,6 +34,7 @@ class RemovePostCommand extends Command
 
         if ($post === null) {
             $this->error('Post not found');
+
             return;
         }
 

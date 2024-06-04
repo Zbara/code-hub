@@ -15,13 +15,15 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/testDataApp',
     )
     ->withMiddleware(function (Middleware $middleware) {
-        //
+        $middleware->alias([
+            'auth' => \App\Http\Middleware\Authenticate::class,
+        ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
         /**
          * We display an error if this is a web environment
          */
-        if (!App::runningInConsole()) {
+        if (! App::runningInConsole()) {
             $exceptions->renderable(function (InvalidFormatException $e) {
                 return response()->json([
                     'error' => 'Invalid date format. Please provide a valid date.',
@@ -30,7 +32,7 @@ return Application::configure(basePath: dirname(__DIR__))
 
             $exceptions->renderable(function (AuthenticationException $e) {
                 return response()->json([
-                    'error' => 'Invalid credentials',
+                    'error' => $e->getMessage(),
                 ], 422);
             });
         }

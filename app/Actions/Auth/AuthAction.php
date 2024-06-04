@@ -8,13 +8,12 @@ use Illuminate\Support\Facades\Auth;
 
 final class AuthAction
 {
-
     /**
      * @throws AuthenticationException
      */
     public function __invoke(): User
     {
-        if (!Auth::attempt(request()->only('email', 'password'))) {
+        if (! Auth::attempt(request()->only('email', 'password'))) {
             throw new AuthenticationException('Invalid credentials');
         }
 

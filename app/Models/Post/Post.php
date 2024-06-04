@@ -34,8 +34,6 @@ class Post extends Model
 
     /**
      * Relationships to user model
-     *
-     * @return BelongsTo
      */
     public function user(): BelongsTo
     {
@@ -44,18 +42,13 @@ class Post extends Model
 
     /**
      * Filters the query
-     *
-     * @param Builder $query
-     * @param array $filters
-     * @return void
      */
     public function scopeFilter(
         Builder $query,
         array $filters
-    ): void
-    {
+    ): void {
         $query->when(isset($filters['created_at']), function ($query) use ($filters) {
-            $query->whereDate('created_at', Carbon::parse($filters['created_at'] . 'f45'));
+            $query->whereDate('created_at', Carbon::parse($filters['created_at'].'f45'));
         });
     }
 }

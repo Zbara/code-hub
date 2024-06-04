@@ -14,13 +14,11 @@ class PostController extends Controller
     /**
      * All the posts list, limited to 5
      *
-     * @param FilterPostRequest $request
      * @return AnonymousResourceCollection
      */
     public function index(
         FilterPostRequest $request
-    )
-    {
+    ) {
         return ShowPostResource::collection(
             Post::query()
                 ->filter($request->validated())
@@ -39,11 +37,11 @@ class PostController extends Controller
     /**
      * Open a post
      *
-     * @param Post $post
      * @return ShowPostResource
      */
-    public function show(Post $post)
-    {
+    public function show(
+        Post $post
+    ) {
         return ShowPostResource::make($post);
     }
 }
