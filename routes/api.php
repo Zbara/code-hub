@@ -26,5 +26,6 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::controller(PostController::class)->prefix('posts')->group(function () {
         Route::get('/', 'index');
         Route::get('/{post}', 'show');
+        Route::post('/create', 'create');
     });
 });

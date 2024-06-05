@@ -21,17 +21,6 @@ class Post extends Model
         'slug',
     ];
 
-    protected static function boot(): void
-    {
-        parent::boot();
-
-        static::creating(function ($post) {
-            if (empty($post->slug)) {
-                $post->slug = Str::slug($post->title);
-            }
-        });
-    }
-
     /**
      * Relationships to user model
      */

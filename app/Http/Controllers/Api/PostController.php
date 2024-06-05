@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Actions\Post\CreatePostAction;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Api\Post\CreatePostRequest;
 use App\Http\Requests\Api\Post\FilterPostRequest;
 use App\Http\Resources\Api\Post\ShowPostResource;
 use App\Models\Post\Post;
-use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
 class PostController extends Controller
@@ -27,11 +28,13 @@ class PostController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Created new post.
      */
-    public function store(Request $request)
-    {
-        //
+    public function create(
+        CreatePostRequest $request,
+        CreatePostAction $action
+    ) {
+        return ShowPostResource::make($action($request->validated(), auth()->user()));
     }
 
     /**
